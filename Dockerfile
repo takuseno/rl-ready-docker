@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.1.1-cudnn8-devel-ubuntu20.04
+FROM pytorch/pytorch:1.13.1-cuda11.6-cudnn8-devel
 
 # this needs to avoid time zone question
 ENV DEBIAN_FRONTEND=noninteractive
@@ -43,19 +43,8 @@ ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/root/.mujoco/mujoco210/bin
 RUN pip3 install --no-cache-dir \
         Cython \
         mujoco-py \
-        atari-py \
-        gym==0.17.3 \
+        gym[atari,accept-rom-license] \
         patchelf
-
-# install Atari 2600
-RUN wget http://www.atarimania.com/roms/Roms.rar && \
-    yes | unrar x Roms.rar && \
-    mkdir rars && \
-    mv ROMS rars/ && \
-    mv HC\ ROMS rars/ && \
-    python3 -m atari_py.import_roms rars && \
-    rm Roms.rar && \
-    rm -r rars
 
 # verify installation
 COPY test.sh /tmp/test.sh
