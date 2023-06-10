@@ -1,0 +1,13 @@
+#!/bin/bash -eux
+
+docker run \
+    --gpus all \
+    -p 6006:6006 \
+    -it \
+    -v `pwd`:`pwd` \
+    -w `pwd` \
+    -v /etc/group:/etc/group:ro \
+    -v /etc/passwd:/etc/passwd:ro \
+    -u $(id -u $USER):$(id -g $USER) \
+    takuseno/rl-ready:latest \
+    bash
