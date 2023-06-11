@@ -4,10 +4,9 @@ docker run \
     --gpus all \
     -p 6006:6006 \
     -it \
-    -v `pwd`:`pwd` \
-    -w `pwd` \
-    -v /etc/group:/etc/group:ro \
-    -v /etc/passwd:/etc/passwd:ro \
-    -u $(id -u $USER):$(id -g $USER) \
+    -e LOCAL_UID=$(id -u $USER) \
+    -e LOCAL_GID=$(id -g $USER) \
+    -v `pwd`:/workspace \
+    -w /workspace \
     takuseno/rl-ready:latest \
     bash

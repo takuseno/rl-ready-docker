@@ -28,29 +28,17 @@ RUN apt-get update && \
         libxrender1 \
         libosmesa6-dev \
         libglfw3 \
-        libpcre3-dev && \
+        libpcre3-dev \
+        gosu && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/*
 
-# install MuJoCo
-RUN wget https://github.com/deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz && \
-    tar xvf mujoco210-linux-x86_64.tar.gz && \
-    mkdir ~/.mujoco && \
-    mv mujoco210 ~/.mujoco/mujoco210
-ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/root/.mujoco/mujoco210/bin
-
-# install Python packages
-RUN pip3 install --no-cache-dir \
-        Cython \
-        mujoco-py \
-        gym[atari,accept-rom-license] \
-        patchelf
-
-# verify installation
-COPY test.sh /tmp/test.sh
-RUN /tmp/test.sh
+COPY test.sh /usr/local/bin/test.sh
+RUN chmod +x /usr/local/bin/test.sh
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # tensorbord port
 EXPOSE 6006
 
-CMD ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
