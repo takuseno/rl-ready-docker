@@ -6,14 +6,14 @@ Dockerfile for RL-ready contrainer.
 - MuJoCo (mujoco-py)
 - Atari 2600 (atari-py)
 
-## build
+## usage
 ```
-$ docker build -t takuseno/rl-ready:latest .
+$ git clone https://github.com/takuseno/rl-ready-docker
+$ cd rl-ready-docker
+$ ./build.sh
+$ export PATH=$(pwd)/bin:$PATH
+$ run-rl-ready-docker  # start with the current directory mounted
 ```
 
-## command
-```
-export PATH=$HOME/<path-to-repo>/rl-ready-docker/bin:$PATH
-```
-
+## commands
 - run-rl-ready-docker: Start a new container with mounting the current working directory.
