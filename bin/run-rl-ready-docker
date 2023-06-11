@@ -4,6 +4,7 @@ docker run \
     --gpus all \
     -p 6006:6006 \
     -it \
+    --rm \
     -e LOCAL_UID=$(id -u $USER) \
     -e LOCAL_GID=$(id -g $USER) \
     -v `pwd`:/workspace \
