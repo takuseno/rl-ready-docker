@@ -17,7 +17,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/user/.mujoco/mujoco210/bin
 
 echo "Install Python packages for RL"
 gosu user pip3 install --no-cache-dir \
-    Cython \
+    Cython==0.29.36 \
     mujoco-py \
     gym[atari,accept-rom-license] \
     opencv-python \
