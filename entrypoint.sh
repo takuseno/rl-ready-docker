@@ -21,7 +21,7 @@ gosu user pip3 install --no-cache-dir \
     mujoco-py \
     gym[atari,accept-rom-license] \
     opencv-python \
-    git+https://github.com/Farama-Foundation/D4RL \
+    git+https://github.com/takuseno/D4RL \
     patchelf
 gosu user pip3 uninstall -y pybullet
 gosu user pip3 install --no-cache-dir -U gym
