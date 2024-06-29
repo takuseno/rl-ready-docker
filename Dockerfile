@@ -1,4 +1,4 @@
-FROM pytorch/pytorch:1.13.1-cuda11.6-cudnn8-devel
+FROM pytorch/pytorch:2.3.0-cuda12.1-cudnn8-devel
 
 # this needs to avoid time zone question
 ENV DEBIAN_FRONTEND=noninteractive
@@ -6,6 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # install packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+        sudo \
         build-essential \
         software-properties-common \
         apt-transport-https \
@@ -33,6 +34,8 @@ RUN apt-get update && \
         libosmesa6-dev \
         libglfw3 \
         libpcre3-dev \
+        gfortran \
+        libopenmpi-dev \
         gosu && \
     echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - && \
